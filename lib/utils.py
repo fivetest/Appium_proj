@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# 工具函数
 # 此文件主要把一些常用的操作封装，方便使用
 import os
 import time
