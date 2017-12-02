@@ -1,22 +1,14 @@
 #!/usr/bin/env python
-import time
 import unittest
-from appium import webdriver
-from config import woody_app_desired_caps
-from lib.utils import *
+from lib.AndroidDriver import AndroidDriver
+
 
 class WoodyApps(unittest.TestCase):
-    def setUp(self):
-        appium_url = 'http://127.0.0.1:4723/wd/hub'  # hub 服务器
-        self.driver = webdriver.Remote(appium_url, woody_app_desired_caps)
-
-    def tearDown(self):
-        self.driver.quit()
-
     def test_swipe_down(self):
-        driver = self.driver
-        swipeToDown(driver, 300)   # 向下滑动
-        # 验证拖到地了，查看日期的按钮可见
-        elem = driver.find_element_by_id("cc.liushi.testapp:id/date_button")
-        self.assertTrue(elem)
-        capture_screen_shot(driver)  # 截图
+        """打开啄木鸟的app， 向下滑动，然后检查日期的按钮是否能看见"""
+        ad = AndroidDriver()
+        ad.swipe_to_down()
+        # 需要确认按钮能否找到
+        self.assertTrue(ad.is_element_appearance('cc.liushi.testapp:id/date_button'))
+        # 截图
+        ad.capture_screenshots()
