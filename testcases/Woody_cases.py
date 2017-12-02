@@ -3,7 +3,7 @@ import time
 import unittest
 from appium import webdriver
 from config import woody_app_desired_caps
-from lib.utils import capture_screen_shot
+from lib.utils import *
 
 class WoodyApps(unittest.TestCase):
     def setUp(self):
@@ -15,13 +15,8 @@ class WoodyApps(unittest.TestCase):
 
     def test_swipe_down(self):
         driver = self.driver
-        x = driver.get_window_size()['width']
-        # 获取屏幕宽
-        y = driver.get_window_size()['height']
-        # 向下滑动
-        driver.swipe(1 / 2 * x, 6 / 7 * y, 1 / 2 * x, 1 / 7 * y, 200)
-
+        swipeToDown(driver, 300)   # 向下滑动
         # 验证拖到地了，查看日期的按钮可见
         elem = driver.find_element_by_id("cc.liushi.testapp:id/date_button")
         self.assertTrue(elem)
-        capture_screen_shot(driver)
+        capture_screen_shot(driver)  # 截图
