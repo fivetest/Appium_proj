@@ -23,5 +23,15 @@ class WoodyApps(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_send_keys(self):
-        self.assertEqual(1, 1)
+    def test_swipe_down(self):
+        driver = self.driver
+        x = driver.get_window_size()['width']
+        # 获取屏幕宽
+        y = driver.get_window_size()['height']
+        # 向下滑动
+        driver.swipe(1 / 2 * x, 6 / 7 * y, 1 / 2 * x, 1 / 7 * y, 200)
+
+        # 验证拖到地了，查看日期的按钮可见
+        elem = driver.find_element_by_id("cc.liushi.testapp:id/date_button")
+        self.assertTrue(elem)
+        driver.get_screenshot_as_file(filename='woody.png')
