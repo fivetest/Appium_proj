@@ -1,22 +1,12 @@
 #!/usr/bin/env python
 import time
-from appium import webdriver
 import unittest
+from appium import webdriver
+from config import woody_app_desired_caps
 
 
 class WoodyApps(unittest.TestCase):
     def setUp(self):
-        woody_app_desired_caps = {
-            'platformName': 'Android',
-            'platformVersion': '5',
-            'deviceName': 'android',
-            'appPackage': 'cc.liushi.testapp',
-            'appActivity': '.HomeScreenActivity',
-            # 'app': r'F:\GitHub\Appium_demo\app-debug.apk',
-            'unicodeKeyboard': True,
-            'resetKeyboard': True,
-            'newCommandTimeout': 600
-        }
         appium_url = 'http://127.0.0.1:4723/wd/hub'  # hub 服务器
         self.driver = webdriver.Remote(appium_url, woody_app_desired_caps)
 
@@ -34,4 +24,4 @@ class WoodyApps(unittest.TestCase):
         # 验证拖到地了，查看日期的按钮可见
         elem = driver.find_element_by_id("cc.liushi.testapp:id/date_button")
         self.assertTrue(elem)
-        driver.get_screenshot_as_file(filename='woody.png')
+        driver.get_screenshot_as_file(filename='./screen_shots/woody_%s.png' % time.strftime("%Y-%m-%d %H-%M-%S"))
