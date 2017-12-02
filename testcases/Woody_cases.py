@@ -3,7 +3,7 @@ import time
 import unittest
 from appium import webdriver
 from config import woody_app_desired_caps
-
+from lib.utils import capture_screen_shot
 
 class WoodyApps(unittest.TestCase):
     def setUp(self):
@@ -24,4 +24,4 @@ class WoodyApps(unittest.TestCase):
         # 验证拖到地了，查看日期的按钮可见
         elem = driver.find_element_by_id("cc.liushi.testapp:id/date_button")
         self.assertTrue(elem)
-        driver.get_screenshot_as_file(filename='./screen_shots/woody_%s.png' % time.strftime("%Y-%m-%d %H-%M-%S"))
+        capture_screen_shot(driver)
