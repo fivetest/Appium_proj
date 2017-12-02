@@ -57,6 +57,11 @@ class AndroidDriver(object):
             return True
         except NoSuchElementException:
             pass
+        try:
+            self.driver.find_element_by_accessibility_id(locator)
+            return True
+        except NoSuchElementException:
+            pass
         return False
 
     def type_by_id(self, locator, text):
@@ -76,6 +81,22 @@ class AndroidDriver(object):
         except Exception as e:
             AndroidDriver.print_exception_message()
             return False
+
+    def click_by_id(self, locator):
+        """根据id来点击
+        1、先使用 find_element_by_id
+        2、再使用 find_element_by_accessibility_id"""
+        try:
+            self.driver.find_element_by_id(locator).click()
+            return True
+        except Exception:
+            pass
+        try:
+            self.driver.find_element_by_accessibility_id(locator).click()
+            return True
+        except Exception as e:
+            pass
+        return False
 
     def click_by_xpath(self, locator):
         """点击xpath"""
@@ -103,7 +124,7 @@ class AndroidDriver(object):
             AndroidDriver.print_exception_message()
             return False
 
-    def quit(self):
+    def __del__(self):
         if self.driver:
             self.driver.quit()
 
@@ -114,7 +135,6 @@ if __name__ == "__main__":
     # ad.type_by_id("cc.liushi.testapp:id/my_text_field", '啄木鸟')  # 向指定的位置，发送文本
     ad.click_by_xpath("//*[@resource-id='cc.liushi.testapp:id/my_text_field']")
 
-    ad.quit()   # 对象销毁
     print("执行完毕")
 
 

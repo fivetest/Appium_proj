@@ -12,3 +12,20 @@ class WoodyApps(unittest.TestCase):
         self.assertTrue(ad.is_element_appearance('cc.liushi.testapp:id/date_button'))
         # 截图
         ad.capture_screenshots()
+
+
+    def test_popup_window(self):
+        """"content-desc=showPopupWindowButtonCD"""
+        ad = AndroidDriver()
+        ad.click_by_id('showPopupWindowButtonCD')
+        ad.capture_screenshots()
+
+    def test_text_is_visible(self):
+        """点击一个按钮以后，文本会显出"""
+        ad = AndroidDriver()
+        # 检查目标文本没有出现
+        self.assertFalse(ad.is_element_appearance("//android.widget.TextView[@text='文本会显示']"))
+        ad.click_by_id("cc.liushi.testapp:id/visibleButtonTest")
+        # 检查目标文本应该出现
+        self.assertTrue(ad.is_element_appearance("//android.widget.TextView[@text='文本会显示']"))
+        ad.capture_screenshots()
